@@ -1,6 +1,4 @@
-using api.Interfaces;
-using api.Repositories;
-using api.Services;
+using api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,15 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IAppUsersRepo, AppUserRepo>(provider =>
-{
-    return new AppUserRepo(builder.Configuration.GetConnectionString("MySQL") ?? "");
-});
-
-builder.Services.AddScoped<ITokenService, TokenService>(provider =>
-{
-    return new TokenService(builder.Configuration["TokenKey"] ?? "");
-});
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
@@ -40,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("Angular");
+
+app.UseAuthentication();
 
 app.UseHttpsRedirection();
 
