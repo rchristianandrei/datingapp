@@ -15,6 +15,16 @@ builder.Services.AddScoped<IAppUserRepo, AppUserRepo>(provider =>
     return new AppUserRepo(builder.Configuration.GetConnectionString("MySQL") ?? "");
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Angular", builder =>
+    {
+        builder.AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithOrigins("http://localhost:4200");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("Angular");
 
 app.UseHttpsRedirection();
 
