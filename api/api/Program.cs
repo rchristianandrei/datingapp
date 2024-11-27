@@ -1,5 +1,5 @@
-using api.Controllers.AppUsers;
 using api.Interfaces;
+using api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IAppUserRepo, AppUserRepo>(provider =>
+builder.Services.AddScoped<IAppUsersRepo, AppUserRepo>(provider =>
 {
     return new AppUserRepo(builder.Configuration.GetConnectionString("MySQL") ?? "");
 });

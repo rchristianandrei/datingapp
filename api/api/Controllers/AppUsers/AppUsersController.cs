@@ -1,17 +1,14 @@
 ﻿using api.Entities;
 using api.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace api.Controllers.AppUsers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppUsersController(IAppUserRepo appUserRepo) : ControllerBase
+    public class AppUsersController(IAppUsersRepo appUserRepo) : ControllerBase
     {
-        private readonly IAppUserRepo _appUserRepo = appUserRepo;
+        private readonly IAppUsersRepo _appUserRepo = appUserRepo;
 
         #region Create
         [HttpPost]
@@ -19,7 +16,7 @@ namespace api.Controllers.AppUsers
         {
             try
             {
-                await this._appUserRepo.Save(appuser);
+                await _appUserRepo.Insert(appuser);
 
                 return StatusCode(201, new { message = "successfully created appuser" });
             }
@@ -27,7 +24,7 @@ namespace api.Controllers.AppUsers
             {
                 Console.Error.WriteLine(ex.Message);
 
-                return StatusCode(500, new {error = "failed to create appuser"});
+                return StatusCode(500, new { error = "failed to create appuser" });
             }
         }
         #endregion
@@ -45,14 +42,14 @@ namespace api.Controllers.AppUsers
         {
             try
             {
-                var list = await this._appUserRepo.Get1000();
+                var list = await _appUserRepo.Get1000();
 
                 return StatusCode(200, list);
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex.Message);
-                return StatusCode(500, new {error = "failed to get appusers"}); ;
+                return StatusCode(500, new { error = "failed to get appusers" }); ;
             }
         }
 
@@ -61,7 +58,7 @@ namespace api.Controllers.AppUsers
         {
             try
             {
-                var user = await this._appUserRepo.Get1(id);
+                var user = await _appUserRepo.Get1(id);
 
                 if (user == null)
                     return StatusCode(400, new { error = "failed to get user" });
@@ -82,7 +79,7 @@ namespace api.Controllers.AppUsers
         {
             try
             {
-                await this._appUserRepo.Delete(id);
+                await _appUserRepo.Delete(id);
 
                 return StatusCode(200, new { message = "successfully deleted user" });
             }
