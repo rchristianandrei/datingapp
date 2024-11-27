@@ -14,7 +14,11 @@ namespace api.Interfaces
 
         #region Read
         Task<List<AppUser>> Get1000();
+
         Task<AppUser?> Get1(int id);
+
+        Task<AppUser?> Login(string username);
+
         Task<bool> UsernameExists(string username);
         #endregion
 

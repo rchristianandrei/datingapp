@@ -2,7 +2,7 @@
 
 namespace api.Controllers.Accounts
 {
-    public class RegisterDTO
+    public class LoginDTO
     {
         [Required]
         [StringLength(45, MinimumLength = 1)]

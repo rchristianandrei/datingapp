@@ -18,10 +18,9 @@ namespace api.Repositories
         #region Create
         public async Task Insert(AppUser user)
         {
-            var query = $"INSERT INTO {tblName}({colId}, {colUsername}, {colPasswordHash}, {colPasswordSalt})" +
-                "VALUES(@Id, @Username, @Hash, @Salt);";
+            var query = $"INSERT INTO {tblName}({colUsername}, {colPasswordHash}, {colPasswordSalt})" +
+                "VALUES(@Username, @Hash, @Salt);";
             MySqlParameter[] parameters = [
-                new MySqlParameter("@Id", user.Id),
                 new MySqlParameter("@Username", user.Username),
                 new MySqlParameter("@Hash", user.PasswordHash),
                 new MySqlParameter("@Salt", user.PasswordSalt)
@@ -42,7 +41,7 @@ namespace api.Repositories
         public async Task<List<AppUser>> Get1000()
         {
             var list = new List<AppUser>();
-            var query = $"SELECT {colId}, {colUsername}, {colPasswordHash}, {colPasswordSalt} FROM {tblName} LIMIT 1000;";
+            var query = $"SELECT {colId}, {colUsername} FROM {tblName} LIMIT 1000;";
             using var conn = new MySqlConnection(_connString);
             using var command = new MySqlCommand(query, conn);
             await conn.OpenAsync();
@@ -51,15 +50,9 @@ namespace api.Repositories
             {
                 var user = new AppUser()
                 {
-                    Id = reader.GetInt32(reader.GetOrdinal(colId)),
-                    Username = reader.GetString( reader.GetOrdinal(colUsername))
+                    Id = (int)reader[colId],
+                    Username = (string)reader[colUsername]
                 };
-
-                if (!reader.IsDBNull(reader.GetOrdinal(colPasswordHash)))
-                    user.PasswordHash = (byte[])reader.GetValue(reader.GetOrdinal(colPasswordHash));
-
-                if (!reader.IsDBNull(reader.GetOrdinal(colPasswordSalt)))
-                    user.PasswordSalt = (byte[])reader.GetValue(reader.GetOrdinal(colPasswordSalt));
 
                 list.Add(user);
             }
@@ -78,8 +71,32 @@ namespace api.Repositories
             {
                 return new AppUser()
                 {
-                    Id = reader.GetInt32(0),
-                    Username = reader.GetString(1)
+                    Id = (int)reader[colId],
+                    Username = (string)reader[colUsername]
+                };
+            }
+            return null;
+        }
+
+        public async Task<AppUser?> Login(string username)
+        {
+            var query = $"SELECT {colId}, {colUsername}, {colPasswordHash}, {colPasswordSalt} FROM {tblName} WHERE {colUsername} = @Username;";
+            var parameters = new MySqlParameter[] {
+                new ("@Username", username)
+            };
+            using var conn = new MySqlConnection(_connString);
+            using var command = new MySqlCommand(query, conn);
+            command.Parameters.AddRange(parameters);
+            await conn.OpenAsync();
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                return new AppUser()
+                {
+                    Id = (int)reader[colId],
+                    Username = (string)reader[colUsername],
+                    PasswordHash = (byte[])reader[colPasswordHash],
+                    PasswordSalt = (byte[])reader[colPasswordSalt]
                 };
             }
             return null;
