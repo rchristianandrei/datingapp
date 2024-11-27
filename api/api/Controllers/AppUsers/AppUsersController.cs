@@ -1,5 +1,6 @@
 ﻿using api.Entities;
 using api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers.AppUsers
@@ -38,6 +39,7 @@ namespace api.Controllers.AppUsers
 
         #region Read
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AppUser?>>> Get()
         {
             try
@@ -54,6 +56,7 @@ namespace api.Controllers.AppUsers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<AppUser?>> Get(int id)
         {
             try

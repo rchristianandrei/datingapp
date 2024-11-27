@@ -1,5 +1,6 @@
 using api.Interfaces;
 using api.Repositories;
+using api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAppUsersRepo, AppUserRepo>(provider =>
 {
     return new AppUserRepo(builder.Configuration.GetConnectionString("MySQL") ?? "");
+});
+
+builder.Services.AddScoped<ITokenService, TokenService>(provider =>
+{
+    return new TokenService(builder.Configuration["TokenKey"] ?? "");
 });
 
 builder.Services.AddCors(options =>

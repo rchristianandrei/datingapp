@@ -8,9 +8,10 @@ namespace api.Controllers.Accounts
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController(IAppUsersRepo usersRepo) : ControllerBase
+    public class AccountsController(IAppUsersRepo usersRepo, ITokenService tokenService) : ControllerBase
     {
         private readonly IAppUsersRepo _usersRepo = usersRepo;
+        private readonly ITokenService _tokenService = tokenService;
 
         #region POST
         [HttpPost("register")]
@@ -31,7 +32,8 @@ namespace api.Controllers.Accounts
 
                 // Save User
                 await this._usersRepo.Insert(user);
-                return StatusCode(200,"successfully registered");
+
+                return StatusCode(200, new UserDTO { Username = user.Username, Token = this._tokenService.CreateToken(user) });
             }
             catch (Exception ex)
             {
@@ -60,7 +62,7 @@ namespace api.Controllers.Accounts
                         return StatusCode(401, "Invalid Credentials");
                 }
 
-                return StatusCode(200, user);
+                return StatusCode(200, new UserDTO { Username = user.Username, Token = this._tokenService.CreateToken(user) });
             }
             catch (Exception ex)
             {
