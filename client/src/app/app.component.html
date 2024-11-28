@@ -1,5 +1,4 @@
-<h1>{{ this.title }}</h1>
-
+<app-nav [title]="this.title"></app-nav>
 <ul>
   <li *ngFor="let user of this.users">{{ user.id }}-{{ user.username }}</li>
 </ul>
