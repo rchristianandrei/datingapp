@@ -16,6 +16,15 @@ export class AccountService {
 
   constructor(private http: HttpClient) {}
 
+  register(model: any) {
+    return this.http.post<User>(this.baseURL + 'register', model).pipe(
+      tap((response) => {
+        sessionStorage.setItem(this.sessionKey, JSON.stringify(response));
+        this.currentUserSource.next(response);
+      })
+    );
+  }
+
   login(model: any) {
     return this.http.post<User>(this.baseURL + 'login', model).pipe(
       tap((response) => {

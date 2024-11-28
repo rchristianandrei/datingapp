@@ -11,28 +11,26 @@
       autocomplete="off"
     >
       <h2 class="text-center">Dating App</h2>
-      <div class="py-2 d-flex flex-column">
+      <div class="form-group py-2">
         <label for="">Username</label>
         <input
           name="username"
           [(ngModel)]="this.model.username"
           type="text"
-          class="rounded"
+          class="form-control"
         />
       </div>
-      <div class="py-2 d-flex flex-column">
+      <div class="form-group py-2">
         <label for="">Password</label>
         <input
           name="password"
           [(ngModel)]="this.model.password"
           type="password"
-          class="rounded"
+          class="form-control"
         />
         <a href="" class="text-end">Forgot Password?</a>
       </div>
-      <button class="btn btn-primary w-100 rounded my-2" type="submit">
-        Login
-      </button>
+      <button class="btn btn-primary w-100 my-2" type="submit">Login</button>
       <div class="text-center w-100">
         <a href="" class="text-center">Register</a>
       </div>
