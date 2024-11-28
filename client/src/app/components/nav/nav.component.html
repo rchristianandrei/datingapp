@@ -40,7 +40,20 @@
         </li>
       </ul>
       <div class="d-lg-flex col-lg-3 justify-content-lg-end">
-        <button class="btn btn-primary">Log In</button>
+        <button
+          *ngIf="!(this.accountService.account$ | async)"
+          class="btn btn-primary"
+          (click)="this.login()"
+        >
+          Log In
+        </button>
+        <button
+          *ngIf="this.accountService.account$ | async"
+          class="btn btn-secondary"
+          (click)="this.logout()"
+        >
+          Log Out
+        </button>
       </div>
     </div>
   </div>
