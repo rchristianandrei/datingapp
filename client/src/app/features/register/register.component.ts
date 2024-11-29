@@ -1,22 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account/account.service';
-import { User } from '../../models/user';
-import { Subscriber, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css',
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit, OnDestroy {
   private subcription!: Subscription;
 
   model: any = {};
 
+  protected UsernameErrMsg = '';
+  protected confirmPassErrMsg = '';
+
   constructor(private accountService: AccountService, private router: Router) {}
 
-  //#region Lifecycle
   ngOnInit(): void {
     this.subcription = this.accountService.account$.subscribe({
       next: (value) => {
@@ -29,15 +30,21 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subcription.unsubscribe();
   }
-  //#endregion
 
-  login() {
-    this.accountService.login(this.model).subscribe({
+  register() {
+    if (this.model.password != this.model.confirmPassword) {
+      this.confirmPassErrMsg = 'Passwords do not match';
+      return;
+    }
+
+    this.confirmPassErrMsg = '';
+
+    this.accountService.register(this.model).subscribe({
       next: (value) => {
         this.router.navigateByUrl('/');
       },
       error: (err) => {
-        console.error('Failed to login');
+        console.error(err);
       },
     });
   }

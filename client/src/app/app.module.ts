@@ -9,10 +9,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './components/nav/nav.component';
 import { LoginComponent } from './features/login/login.component';
 import { HomeComponent } from './features/home/home.component';
-import { RegisterComponent } from './features/register/register/register.component';
+import { RegisterComponent } from './features/register/register.component';
 
 @NgModule({
-  declarations: [AppComponent, NavComponent, LoginComponent, HomeComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    NavComponent,
+    LoginComponent,
+    HomeComponent,
+    RegisterComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

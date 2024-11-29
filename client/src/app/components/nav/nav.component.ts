@@ -19,10 +19,6 @@ export class NavComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
   //#endregion
 
-  login() {
-    console.log('Nav Comp: Go to Login!');
-  }
-
   logout() {
     this.accountService.logout();
   }

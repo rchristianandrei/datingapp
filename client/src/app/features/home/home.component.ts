@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccountService } from '../../services/account/account.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  register() {
-    console.log('Home Comp: Go to Register Form!');
-  }
+  constructor(protected accountService: AccountService) {}
 }
