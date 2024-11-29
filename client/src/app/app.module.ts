@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +10,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { LoginComponent } from './features/login/login.component';
 import { HomeComponent } from './features/home/home.component';
 import { RegisterComponent } from './features/register/register.component';
+import { SharedModule } from './modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,10 +25,7 @@ import { RegisterComponent } from './features/register/register.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    ToastrModule.forRoot({
-      autoDismiss: true,
-      closeButton: true,
-    }),
+    SharedModule,
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent],
