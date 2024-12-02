@@ -10,9 +10,9 @@ namespace api.Extensions
         {
             string TOKENKEY = config["TokenKey"] ?? "";
 
-            services.AddScoped<IAppUsersRepo, AppUserRepo>(provider =>
+            services.AddScoped<IAccountsRepo, AccountsRepo>(provider =>
             {
-                return new AppUserRepo(config.GetConnectionString("MySQL") ?? "");
+                return new AccountsRepo(config.GetConnectionString("MySQL") ?? "");
             });
 
             services.AddScoped<ITokenService, TokenService>(provider =>
