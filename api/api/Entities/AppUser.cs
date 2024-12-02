@@ -31,5 +31,14 @@
         public string Country { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
+
+        public int GetAge()
+        {
+            var today = DateTime.Now;
+            var age = today.Year - this.DateOfBirth.Year;
+            if (this.DateOfBirth.Date > today.AddYears(-age)) age--;
+            return age;
+        }
+
     }
 }
