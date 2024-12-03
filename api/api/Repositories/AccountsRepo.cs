@@ -6,9 +6,9 @@ namespace api.Repositories
 {
     public class AccountsRepo(string connString) : IAccountsRepo
     {
-        private static readonly string tblName = "tblaccounts";
-
         private readonly string _connString = connString;
+
+        private const string tblName = "tblaccounts";
 
         private const string colUsername = "dUsername";
         private const string colPasswordHash = "dPasswordHash";

@@ -32,7 +32,7 @@ namespace api.Controllers.Accounts
             // Save User
             await this._accountsRepo.InsertAsync(user);
 
-            return StatusCode(200, new UserDTO { Username = user.Username, Token = this._tokenService.CreateToken(user) });
+            return StatusCode(200, new CredentialsDTO { Username = user.Username, Token = this._tokenService.CreateToken(user) });
         }
 
         [HttpPost("login")]
@@ -53,7 +53,7 @@ namespace api.Controllers.Accounts
                     return StatusCode(401, "Invalid Credentials");
             }
 
-            return StatusCode(200, new UserDTO { Username = user.Username, Token = this._tokenService.CreateToken(user) });
+            return StatusCode(200, new CredentialsDTO { Username = user.Username, Token = this._tokenService.CreateToken(user) });
         }
         #endregion
     }
