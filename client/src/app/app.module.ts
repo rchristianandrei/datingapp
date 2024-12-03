@@ -17,7 +17,7 @@ import { RegisterComponent } from './features/register/register.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { NotfoundComponent } from './features/notfound/notfound.component';
 import { ProfileComponent } from './features/profile/profile.component';
-import { UsercardComponent } from './components/usercard/usercard.component';
+import { ProfilecardComponent } from './features/profile/components/profilecard/profilecard.component';
 import { authInterceptor } from './interceptors/auth/auth.interceptor';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
@@ -30,7 +30,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     RegisterComponent,
     NotfoundComponent,
     ProfileComponent,
-    UsercardComponent,
+    ProfilecardComponent,
   ],
   imports: [
     BrowserModule,
