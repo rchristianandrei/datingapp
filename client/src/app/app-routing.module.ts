@@ -5,11 +5,17 @@ import { LoginComponent } from './features/login/login.component';
 import { RegisterComponent } from './features/register/register.component';
 import { authGuard } from './guards/auth.guard';
 import { NotfoundComponent } from './features/notfound/notfound.component';
+import { ProfileComponent } from './features/profile/profile.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  {
+    path: 'profile/:username',
+    component: ProfileComponent,
+    canActivate: [authGuard],
+  },
   {
     path: '',
     runGuardsAndResolvers: 'always',

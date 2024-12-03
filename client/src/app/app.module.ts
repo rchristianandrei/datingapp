@@ -4,7 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { provideHttpClient } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './components/nav/nav.component';
 import { LoginComponent } from './features/login/login.component';
@@ -12,6 +16,10 @@ import { HomeComponent } from './features/home/home.component';
 import { RegisterComponent } from './features/register/register.component';
 import { SharedModule } from './modules/shared/shared.module';
 import { NotfoundComponent } from './features/notfound/notfound.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { UsercardComponent } from './components/usercard/usercard.component';
+import { authInterceptor } from './interceptors/auth/auth.interceptor';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -21,6 +29,8 @@ import { NotfoundComponent } from './features/notfound/notfound.component';
     HomeComponent,
     RegisterComponent,
     NotfoundComponent,
+    ProfileComponent,
+    UsercardComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,8 +38,9 @@ import { NotfoundComponent } from './features/notfound/notfound.component';
     BrowserAnimationsModule,
     FormsModule,
     SharedModule,
+    TabsModule.forRoot(),
   ],
-  providers: [provideHttpClient()],
+  providers: [provideHttpClient(withInterceptors([authInterceptor]))],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

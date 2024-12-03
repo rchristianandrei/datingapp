@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account/account.service';
-import { User } from '../../models/user';
+import { Account } from '../../models/account';
 import { Subscriber, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private accountService: AccountService,
+    private userService: UserService,
     private router: Router,
     private toastr: ToastrService
   ) {}
@@ -38,9 +40,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.accountService.login(this.model).subscribe({
-      next: (value) => {
-        this.toastr.success('Successfully logged in', 'Login');
-        this.router.navigateByUrl('/');
+      next: (account) => {
+        const username = account.username;
+        this.userService.getUser(username).subscribe({
+          next: (user) => {
+            this.toastr.success('Successfully logged in', 'Login');
+            if (user) this.userService.setUser(user);
+            this.router.navigateByUrl(user ? '/' : `/profile/${username}`);
+          },
+        });
       },
       error: (err) => {
         this.toastr.error('Failed to login', 'Login');

@@ -1,0 +1,45 @@
+<app-nav></app-nav>
+<div class="container">
+  <div class="row">
+    <!-- Card -->
+    <div class="col-12 col-lg-4 mb-2">
+      <app-usercard [user]="this.user"></app-usercard>
+    </div>
+    <!-- Tabs -->
+    <div class="col-12 col-lg-8">
+      <div>
+        <tabset>
+          <tab heading="Profile">
+            <!-- Introduction -->
+            <div class="border rounded my-3 p-2">
+              <h2>Introduction</h2>
+              <p>{{ this.user.introduction }}</p>
+            </div>
+            <!-- Interests -->
+            <div class="border rounded my-3 p-2">
+              <h2>Interests</h2>
+              <p>{{ this.user.interests }}</p>
+            </div>
+
+            <div class="border rounded my-3 p-2">
+              <h2>Gender</h2>
+              <p>{{ this.user.gender }}</p>
+            </div>
+
+            <div class="border rounded my-3 p-2">
+              <h2>City</h2>
+              <p>{{ this.user.city }}</p>
+            </div>
+
+            <div class="border rounded my-3 p-2">
+              <h2>Country</h2>
+              <p>{{ this.user.country }}</p>
+            </div>
+          </tab>
+          <tab heading="Photos">Basic content 1</tab>
+          <tab heading="Basic Title 2">Basic content 2</tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>
