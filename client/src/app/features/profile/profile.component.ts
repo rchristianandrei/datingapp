@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user';
-import { take } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -11,13 +11,24 @@ import { take } from 'rxjs';
 export class ProfileComponent implements OnInit {
   user!: User;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-    this.userService.user$.pipe(take(1)).subscribe({
+    const username = this.route.snapshot.paramMap.get('username');
+
+    if (!username) {
+      this.router.navigateByUrl('/');
+      return;
+    }
+
+    this.userService.getUser(username).subscribe({
       next: (user) => {
-        console.log(user);
-        if (user) this.user = user;
+        if (!user) this.router.navigateByUrl('/');
+        this.user = user;
       },
     });
   }
