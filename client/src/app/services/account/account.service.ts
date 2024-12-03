@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Account } from '../../models/account';
 import { ReplaySubject, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  private readonly baseURL = 'http://localhost:5000/api/accounts/';
+  private readonly baseURL = `${environment.apiUrl}/accounts/`;
 
   readonly sessionKey = 'account';
 

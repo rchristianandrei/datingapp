@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user';
-import { pipe, ReplaySubject, sequenceEqual, tap } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly baseURL = 'http://localhost:5000/api/users';
+  private readonly baseURL = `${environment.apiUrl}/users`;
 
   readonly sessionKey = 'user';
 
