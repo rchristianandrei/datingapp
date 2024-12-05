@@ -1,3 +1,7 @@
 .active {
   text-decoration: underline;
 }
+
+.dropdown-item {
+  cursor: pointer;
+}

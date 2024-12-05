@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary rounded">
+<nav class="navbar navbar-expand-lg bg-body-tertiary rounded mb-2">
   <div class="container-lg">
     <button
       class="navbar-toggler"
@@ -13,31 +13,24 @@
     </button>
 
     <div class="collapse navbar-collapse d-lg-flex">
-      <a class="navbar-brand col-lg-3 me-0" href="#">{{ this.title }}</a>
+      <a class="navbar-brand col-lg-3 me-0">{{ this.title }}</a>
       <ul class="navbar-nav col-lg-6 justify-content-lg-center">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
+          <a
+            class="nav-link"
+            routerLink="/"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            Home
+          </a>
         </li>
         <ng-container *ngIf="this.accountService.account$ | async">
+          <!-- Nav Features if Logged In -->
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              >Dropdown</a
-            >
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+            <a class="nav-link" routerLink="/members" routerLinkActive="active">
+              Members
+            </a>
           </li>
         </ng-container>
       </ul>
@@ -49,13 +42,43 @@
         >
           Log In
         </button>
-        <button
+
+        <div
+          class="btn-group"
           *ngIf="this.accountService.account$ | async"
-          class="btn btn-secondary"
-          (click)="this.logout()"
+          dropdown
         >
-          Log Out
-        </button>
+          <button
+            id="button-basic"
+            dropdownToggle
+            type="button"
+            class="btn btn-secondary dropdown-toggle"
+            aria-controls="dropdown-basic"
+          >
+            {{ (this.accountService.account$ | async)?.username }}
+            <span class="caret"></span>
+          </button>
+          <ul
+            id="dropdown-basic"
+            *dropdownMenu
+            class="dropdown-menu"
+            role="menu"
+            aria-labelledby="button-basic"
+          >
+            <li role="menuitem">
+              <a
+                class="dropdown-item"
+                routerLink="/profile/{{ this.username }}"
+              >
+                Profile
+              </a>
+            </li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem">
+              <a class="dropdown-item" (click)="this.logout()">Logout</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

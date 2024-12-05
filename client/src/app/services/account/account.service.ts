@@ -1,23 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { User } from '../../models/user';
+import { Account } from '../../models/account';
 import { ReplaySubject, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  private readonly baseURL = 'http://localhost:5000/api/accounts/';
+  private readonly baseURL = `${environment.apiUrl}/accounts/`;
 
-  readonly sessionKey = 'user';
+  readonly sessionKey = 'account';
 
-  currentUserSource = new ReplaySubject<User | null>(1);
+  currentUserSource = new ReplaySubject<Account | null>(1);
   account$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
   register(model: any) {
-    return this.http.post<User>(this.baseURL + 'register', model).pipe(
+    return this.http.post<Account>(this.baseURL + 'register', model).pipe(
       tap((response) => {
         sessionStorage.setItem(this.sessionKey, JSON.stringify(response));
         this.currentUserSource.next(response);
@@ -26,7 +27,7 @@ export class AccountService {
   }
 
   login(model: any) {
-    return this.http.post<User>(this.baseURL + 'login', model).pipe(
+    return this.http.post<Account>(this.baseURL + 'login', model).pipe(
       tap((response) => {
         sessionStorage.setItem(this.sessionKey, JSON.stringify(response));
         this.currentUserSource.next(response);

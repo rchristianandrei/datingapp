@@ -1,0 +1,62 @@
+<app-nav></app-nav>
+<div class="container" *ngIf="this.user">
+  <div class="text-center">
+    <img
+      class="border rounded-circle square-image square-image-md"
+      src="./images/user.png"
+      alt="Card image cap"
+    />
+    <h1 *ngIf="this.user">{{ this.user.name }}</h1>
+    <p>
+      Last Active: {{ this.user.lastActive | date : "MMM dd, yyyy HH:mm a" }}
+    </p>
+    <p>User Since: {{ this.user.created | date : "MMM dd, yyyy" }}</p>
+  </div>
+  <!-- Tabs -->
+  <div>
+    <div>
+      <tabset>
+        <tab heading="Profile">
+          <!-- Introduction -->
+          <div class="border rounded my-3 p-2">
+            <h2>Introduction</h2>
+            <p>{{ this.user.introduction }}</p>
+          </div>
+
+          <!-- Interests -->
+          <div class="border rounded my-3 p-2">
+            <h2>Interests</h2>
+            <p>{{ this.user.interests }}</p>
+          </div>
+
+          <div class="row border rounded my-3">
+            <!-- Gender -->
+            <div class="col-6 p-2">
+              <h2>Gender</h2>
+              <p>{{ this.user.gender }}</p>
+            </div>
+            <!-- Age -->
+            <div class="col-6 p-2">
+              <h2>Age</h2>
+              <p>{{ this.user.age }}</p>
+            </div>
+          </div>
+
+          <div class="row border rounded my-3">
+            <!-- City -->
+            <div class="col-6 p-2">
+              <h2>City</h2>
+              <p>{{ this.user.city }}</p>
+            </div>
+            <!-- Country -->
+            <div class="col-6 p-2">
+              <h2>Country</h2>
+              <p>{{ this.user.country }}</p>
+            </div>
+          </div>
+        </tab>
+        <tab heading="Photos">Photos go here!</tab>
+      </tabset>
+    </div>
+  </div>
+</div>

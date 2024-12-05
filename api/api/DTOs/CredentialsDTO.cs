@@ -1,6 +1,6 @@
-﻿namespace api.Controllers.Accounts
+﻿namespace api.DTOs
 {
-    public class UserDTO
+    public class CredentialsDTO
     {
         public required string Username { get; set; }
 

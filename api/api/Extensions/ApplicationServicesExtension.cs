@@ -9,16 +9,26 @@ namespace api.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             string TOKENKEY = config["TokenKey"] ?? "";
+            string connString = config.GetConnectionString("MySQL") ?? "";
 
-            services.AddScoped<IAppUsersRepo, AppUserRepo>(provider =>
+            // Accounts Service
+            services.AddScoped<IAccountsRepo, AccountsRepo>(provider =>
             {
-                return new AppUserRepo(config.GetConnectionString("MySQL") ?? "");
+                return new AccountsRepo(connString);
             });
 
+            // Token Service
             services.AddScoped<ITokenService, TokenService>(provider =>
             {
                 return new TokenService(TOKENKEY);
             });
+
+            // Users Service
+            services.AddScoped<IUsersRepo, UsersRepo>(provider =>
+            {
+                return new UsersRepo(connString);
+            });
+
             return services;
         }
     }

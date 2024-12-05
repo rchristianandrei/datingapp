@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account/account.service';
-import { User } from '../../models/user';
-import { Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -38,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.accountService.login(this.model).subscribe({
-      next: (value) => {
+      next: (account) => {
         this.toastr.success('Successfully logged in', 'Login');
         this.router.navigateByUrl('/');
       },
