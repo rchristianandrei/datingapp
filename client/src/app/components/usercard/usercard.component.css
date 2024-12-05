@@ -1,0 +1,21 @@
+.card {
+  height: 400px;
+  position: relative;
+}
+
+.buttons {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+}
+
+.buttons a {
+  margin: 0 2px;
+}
+
+.image {
+  height: 150px;
+  object-fit: contain;
+  object-position: center;
+}

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user';
-import { ReplaySubject } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -14,5 +13,9 @@ export class UserService {
 
   getUser(username: string) {
     return this.http.get<User>(this.baseURL + '/' + username);
+  }
+
+  getUsers() {
+    return this.http.get<User[]>(this.baseURL + '/');
   }
 }

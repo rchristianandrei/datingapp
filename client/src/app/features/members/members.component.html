@@ -1,0 +1,11 @@
+<app-nav></app-nav>
+<div class="container-lg">
+  <h4>Members</h4>
+  <div class="row">
+    <app-usercard
+      *ngFor="let user of this.users"
+      [user]="user"
+      class="col-12 col-md-4"
+    ></app-usercard>
+  </div>
+</div>
