@@ -14,6 +14,9 @@ namespace api.DTOs
         public string Gender { get; set; } = "";
 
         [Required]
+        public int Age { get; set; } = 0;
+
+        [Required]
         public DateTime DateOfBirth { get; set; }
 
         [Required]

@@ -63,11 +63,13 @@ namespace api.Repositories
             using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
+                var dob = (DateTime)reader[colDateOfBirth];
                 return new UserDTO
                 {
                     Name = (string)reader[colName],
                     Gender = (string)reader[colGender],
-                    DateOfBirth = (DateTime)reader[colDateOfBirth],
+                    Age = this.CalculateAge(dob),
+                    DateOfBirth = dob,
                     Introduction = (string)reader[colIntroduction],
                     LookingFor = (string)reader[colLookingFor],
                     Interests = (string)reader[colInterests],
@@ -94,11 +96,13 @@ namespace api.Repositories
             using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
+                var dob = (DateTime)reader[colDateOfBirth];
                 list.Add(new UserDTO
                 {
                     Name = (string)reader[colName],
                     Gender = (string)reader[colGender],
-                    DateOfBirth = (DateTime)reader[colDateOfBirth],
+                    Age = this.CalculateAge(dob),
+                    DateOfBirth = dob,
                     Introduction = (string)reader[colIntroduction],
                     LookingFor = (string)reader[colLookingFor],
                     Interests = (string)reader[colInterests],
@@ -109,6 +113,14 @@ namespace api.Repositories
                 });
             }
             return list;
+        }
+
+        private int CalculateAge(DateTime date)
+        {
+            var today = DateTime.Now;
+            var age = today.Year - date.Year;
+            if (date.AddYears(age) > today) age--;
+            return age;
         }
     }
 }
