@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.CheckLoggedIn();
-    this.CheckUser();
   }
 
   CheckLoggedIn() {
@@ -26,10 +25,5 @@ export class AppComponent implements OnInit {
     let user: Account | null = null;
     if (userString) user = JSON.parse(userString ?? '');
     this.accountService.currentUserSource.next(user);
-  }
-
-  CheckUser() {
-    let userString = sessionStorage.getItem(this.userService.sessionKey);
-    if (userString) this.userService.setUser(JSON.parse(userString ?? ''));
   }
 }

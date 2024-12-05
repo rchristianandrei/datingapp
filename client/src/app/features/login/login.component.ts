@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private accountService: AccountService,
-    private userService: UserService,
     private router: Router,
     private toastr: ToastrService
   ) {}
@@ -41,14 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   login() {
     this.accountService.login(this.model).subscribe({
       next: (account) => {
-        const username = account.username;
-        this.userService.getUser(username).subscribe({
-          next: (user) => {
-            this.toastr.success('Successfully logged in', 'Login');
-            if (user) this.userService.setUser(user);
-            this.router.navigateByUrl(user ? '/' : `/profile/${username}`);
-          },
-        });
+        this.toastr.success('Successfully logged in', 'Login');
+        this.router.navigateByUrl('/');
       },
       error: (err) => {
         this.toastr.error('Failed to login', 'Login');

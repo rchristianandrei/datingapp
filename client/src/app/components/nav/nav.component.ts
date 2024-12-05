@@ -16,10 +16,7 @@ export class NavComponent implements OnInit, OnDestroy {
 
   private subscription!: Subscription;
 
-  constructor(
-    protected accountService: AccountService,
-    private userService: UserService
-  ) {}
+  constructor(protected accountService: AccountService) {}
 
   //#region Lifecycle
   ngOnInit(): void {
@@ -38,6 +35,5 @@ export class NavComponent implements OnInit, OnDestroy {
 
   logout() {
     this.accountService.logout();
-    this.userService.logout();
   }
 }
