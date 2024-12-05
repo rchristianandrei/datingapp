@@ -1,0 +1,16 @@
+.row {
+  margin: 0;
+}
+
+.square-image {
+  height: 100px;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (min-width: 768px) {
+  /* CSS rules for medium-sized devices */
+  .square-image-md {
+    height: 200px;
+  }
+}

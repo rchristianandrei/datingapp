@@ -1,5 +1,0 @@
-.square-image {
-  height: 200px;
-  object-fit: contain; /* Make sure the full image is visible */
-  object-position: center;
-}

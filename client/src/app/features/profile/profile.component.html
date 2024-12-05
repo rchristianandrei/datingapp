@@ -1,50 +1,62 @@
 <app-nav></app-nav>
-<div class="container">
-  <div class="row">
-    <!-- Card -->
-    <div class="col-12 col-lg-4 mb-2">
-      <app-profilecard [user]="this.user"></app-profilecard>
-    </div>
-    <!-- Tabs -->
-    <div class="col-12 col-lg-8">
-      <div>
-        <tabset>
-          <tab heading="Profile">
-            <!-- Introduction -->
-            <div class="border rounded my-3 p-2">
-              <h2>Introduction</h2>
-              <p>{{ this.user.introduction }}</p>
-            </div>
-            <!-- Interests -->
-            <div class="border rounded my-3 p-2">
-              <h2>Interests</h2>
-              <p>{{ this.user.interests }}</p>
-            </div>
+<div class="container" *ngIf="this.user">
+  <div class="text-center">
+    <img
+      class="border rounded-circle square-image square-image-md"
+      src="./images/user.png"
+      alt="Card image cap"
+    />
+    <h1 *ngIf="this.user">{{ this.user.name }}</h1>
+    <p>
+      Last Active: {{ this.user.lastActive | date : "MMM dd, yyyy HH:mm a" }}
+    </p>
+    <p>User Since: {{ this.user.created | date : "MMM dd, yyyy" }}</p>
+  </div>
+  <!-- Tabs -->
+  <div>
+    <div>
+      <tabset>
+        <tab heading="Profile">
+          <!-- Introduction -->
+          <div class="border rounded my-3 p-2">
+            <h2>Introduction</h2>
+            <p>{{ this.user.introduction }}</p>
+          </div>
 
-            <div class="border rounded my-3 p-2">
-              <h2>Age</h2>
-              <p>{{ this.user.age }}</p>
-            </div>
+          <!-- Interests -->
+          <div class="border rounded my-3 p-2">
+            <h2>Interests</h2>
+            <p>{{ this.user.interests }}</p>
+          </div>
 
-            <div class="border rounded my-3 p-2">
+          <div class="row border rounded my-3">
+            <!-- Gender -->
+            <div class="col-6 p-2">
               <h2>Gender</h2>
               <p>{{ this.user.gender }}</p>
             </div>
+            <!-- Age -->
+            <div class="col-6 p-2">
+              <h2>Age</h2>
+              <p>{{ this.user.age }}</p>
+            </div>
+          </div>
 
-            <div class="border rounded my-3 p-2">
+          <div class="row border rounded my-3">
+            <!-- City -->
+            <div class="col-6 p-2">
               <h2>City</h2>
               <p>{{ this.user.city }}</p>
             </div>
-
-            <div class="border rounded my-3 p-2">
+            <!-- Country -->
+            <div class="col-6 p-2">
               <h2>Country</h2>
               <p>{{ this.user.country }}</p>
             </div>
-          </tab>
-          <tab heading="Photos">Basic content 1</tab>
-          <tab heading="Basic Title 2">Basic content 2</tab>
-        </tabset>
-      </div>
+          </div>
+        </tab>
+        <tab heading="Photos">Photos go here!</tab>
+      </tabset>
     </div>
   </div>
 </div>
