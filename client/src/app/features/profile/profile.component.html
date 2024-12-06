@@ -6,7 +6,7 @@
       src="./images/user.png"
       alt="Card image cap"
     />
-    <h1 *ngIf="this.user">{{ this.user.name }}</h1>
+    <h1 *ngIf="this.user">{{ this.user.name }} ({{ this.user.age }})</h1>
     <p>
       Last Active: {{ this.user.lastActive | date : "MMM dd, yyyy HH:mm a" }}
     </p>
@@ -17,43 +17,111 @@
     <div>
       <tabset>
         <tab heading="Profile">
-          <!-- Introduction -->
-          <div class="border rounded my-3 p-2">
-            <h2>Introduction</h2>
-            <p>{{ this.user.introduction }}</p>
-          </div>
+          <form #form="ngForm">
+            <!-- Edit Panel -->
+            <div
+              *ngIf="this.owner"
+              class="border rounded my-3 p-2 d-flex justify-content-end"
+            >
+              <button
+                *ngIf="!this.editing"
+                class="btn btn-primary"
+                (click)="this.editing = true"
+              >
+                Edit
+              </button>
+              <ng-container *ngIf="this.editing">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  (click)="this.saveUser()"
+                >
+                  Save
+                </button>
+                <button
+                  class="btn btn-danger ms-1"
+                  (click)="this.editing = false"
+                >
+                  Cancel
+                </button>
+              </ng-container>
+            </div>
+            <!-- Introduction -->
+            <div class="border rounded my-3 p-2">
+              <h2>Introduction</h2>
+              <p *ngIf="!this.editing">{{ this.user.introduction }}</p>
+              <textarea
+                *ngIf="this.editing"
+                class="w-100 form-control"
+                #introduction
+                >{{ this.user.introduction }}</textarea
+              >
+            </div>
 
-          <!-- Interests -->
-          <div class="border rounded my-3 p-2">
-            <h2>Interests</h2>
-            <p>{{ this.user.interests }}</p>
-          </div>
+            <!-- Interests -->
+            <div class="border rounded my-3 p-2">
+              <h2>Interests</h2>
+              <p *ngIf="!this.editing">{{ this.user.interests }}</p>
+              <textarea
+                *ngIf="this.editing"
+                class="w-100 form-control"
+                #interests
+                >{{ this.user.interests }}</textarea
+              >
+            </div>
 
-          <div class="row border rounded my-3">
-            <!-- Gender -->
-            <div class="col-6 p-2">
-              <h2>Gender</h2>
-              <p>{{ this.user.gender }}</p>
+            <!-- Looking For -->
+            <div class="border rounded my-3 p-2">
+              <h2>Looking For</h2>
+              <p *ngIf="!this.editing">{{ this.user.lookingFor }}</p>
+              <textarea
+                *ngIf="this.editing"
+                class="w-100 form-control"
+                #lookingFor
+                >{{ this.user.lookingFor }}</textarea
+              >
             </div>
-            <!-- Age -->
-            <div class="col-6 p-2">
-              <h2>Age</h2>
-              <p>{{ this.user.age }}</p>
-            </div>
-          </div>
 
-          <div class="row border rounded my-3">
-            <!-- City -->
-            <div class="col-6 p-2">
-              <h2>City</h2>
-              <p>{{ this.user.city }}</p>
+            <div class="row border rounded my-3">
+              <!-- Gender -->
+              <div class="col-6 p-2">
+                <h2>Gender</h2>
+                <p>{{ this.user.gender }}</p>
+              </div>
+              <!-- Birth Day -->
+              <div class="col-6 p-2">
+                <h2>Birth date</h2>
+                <p>{{ this.user.dateOfBirth | date : "MMM dd, yyyy" }}</p>
+              </div>
             </div>
-            <!-- Country -->
-            <div class="col-6 p-2">
-              <h2>Country</h2>
-              <p>{{ this.user.country }}</p>
+
+            <div class="row border rounded my-3">
+              <!-- City -->
+              <div class="col-6 p-2">
+                <h2>City</h2>
+                <p *ngIf="!this.editing">{{ this.user.city }}</p>
+                <input
+                  type="text"
+                  *ngIf="this.editing"
+                  #city
+                  [value]="this.user.city"
+                  class="w-100 form-control"
+                />
+              </div>
+              <!-- Country -->
+              <div class="col-6 p-2">
+                <h2>Country</h2>
+                <p *ngIf="!this.editing">{{ this.user.country }}</p>
+                <input
+                  type="text"
+                  *ngIf="this.editing"
+                  #country
+                  [value]="this.user.country"
+                  class="w-100 form-control"
+                />
+              </div>
             </div>
-          </div>
+          </form>
         </tab>
         <tab heading="Photos">Photos go here!</tab>
       </tabset>

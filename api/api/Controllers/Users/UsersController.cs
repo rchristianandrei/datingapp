@@ -2,6 +2,7 @@
 using api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace api.Controllers.Users
 {
@@ -22,10 +23,16 @@ namespace api.Controllers.Users
         #endregion
 
         #region Update
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] UserDTO userDto)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (username?.ToLower() != userDto.Username.ToLower()) return Unauthorized();
+
+            await this.usersRepo.SaveAsync(userDto);
+            return StatusCode(204, "Updated successfully");
+        }
         #endregion
 
         #region Read

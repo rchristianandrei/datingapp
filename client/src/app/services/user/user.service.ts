@@ -11,6 +11,10 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  updateUser(user: User) {
+    return this.http.put(this.baseURL + '/', user);
+  }
+
   getUser(username: string) {
     return this.http.get<User>(this.baseURL + '/' + username);
   }

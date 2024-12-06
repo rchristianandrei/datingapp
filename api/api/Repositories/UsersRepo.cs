@@ -52,7 +52,7 @@ namespace api.Repositories
 
         public async Task<UserDTO?> GetbyUsernameAsync(string username)
         {
-            var query = $"SELECT {colName}, {colGender}, {colDateOfBirth}, {colIntroduction}," +
+            var query = $"SELECT {colUsername}, {colName}, {colGender}, {colDateOfBirth}, {colIntroduction}," +
                 $"{colLookingFor}, {colInterests}, {colCity}, {colCountry}, {colCreated}, {colLastActive} " +
                 $"FROM {tblName} WHERE LOWER({colUsername}) = LOWER(@Username);";
 
@@ -66,6 +66,7 @@ namespace api.Repositories
                 var dob = (DateTime)reader[colDateOfBirth];
                 return new UserDTO
                 {
+                    Username = (string)reader[colUsername],
                     Name = (string)reader[colName],
                     Gender = (string)reader[colGender],
                     Age = this.CalculateAge(dob),
@@ -84,7 +85,7 @@ namespace api.Repositories
 
         public async Task<IEnumerable<UserDTO>> GetAsync()
         {
-            var query = $"SELECT {colName}, {colGender}, {colDateOfBirth}, {colIntroduction}," +
+            var query = $"SELECT {colUsername}, {colName}, {colGender}, {colDateOfBirth}, {colIntroduction}," +
                 $"{colLookingFor}, {colInterests}, {colCity}, {colCountry}, {colCreated}, {colLastActive} " +
                 $"FROM {tblName};";
 
@@ -99,6 +100,7 @@ namespace api.Repositories
                 var dob = (DateTime)reader[colDateOfBirth];
                 list.Add(new UserDTO
                 {
+                    Username = (string)reader[colUsername],
                     Name = (string)reader[colName],
                     Gender = (string)reader[colGender],
                     Age = this.CalculateAge(dob),
