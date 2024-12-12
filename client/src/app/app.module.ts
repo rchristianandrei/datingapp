@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './features/login/login.component';
 import { HomeComponent } from './features/home/home.component';
 import { RegisterComponent } from './features/register/register.component';
 import { SharedModule } from './modules/shared/shared.module';
@@ -15,11 +14,11 @@ import { authInterceptor } from './interceptors/auth/auth.interceptor';
 import { ComponentsModule } from './components/components.module';
 import { MembersModule } from './features/members/members.module';
 import { ProfileModule } from './features/profile/profile.module';
+import { LoginModule } from './features/login/login.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     HomeComponent,
     RegisterComponent,
     NotfoundComponent,
@@ -33,6 +32,7 @@ import { ProfileModule } from './features/profile/profile.module';
     ComponentsModule,
     MembersModule,
     ProfileModule,
+    LoginModule,
   ],
   providers: [provideHttpClient(withInterceptors([authInterceptor]))],
   bootstrap: [AppComponent],
