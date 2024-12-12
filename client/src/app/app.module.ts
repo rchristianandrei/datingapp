@@ -13,8 +13,8 @@ import { SharedModule } from './modules/shared/shared.module';
 import { NotfoundComponent } from './features/notfound/notfound.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { authInterceptor } from './interceptors/auth/auth.interceptor';
-import { MembersComponent } from './features/members/members.component';
 import { ComponentsModule } from './components/components.module';
+import { MembersModule } from './features/members/members.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { ComponentsModule } from './components/components.module';
     RegisterComponent,
     NotfoundComponent,
     ProfileComponent,
-    MembersComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +32,7 @@ import { ComponentsModule } from './components/components.module';
     FormsModule,
     SharedModule,
     ComponentsModule,
+    MembersModule,
   ],
   providers: [provideHttpClient(withInterceptors([authInterceptor]))],
   bootstrap: [AppComponent],

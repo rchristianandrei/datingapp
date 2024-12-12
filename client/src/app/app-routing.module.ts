@@ -13,7 +13,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile/:username', component: ProfileComponent },
-  { path: 'members', component: MembersComponent, canActivate: [authGuard] },
+  {
+    path: 'members',
+    loadChildren: () =>
+      import('./features/members/members.module').then((m) => m.MembersModule),
+    canActivate: [authGuard],
+  },
   // {
   //   path: '',
   //   runGuardsAndResolvers: 'always',
