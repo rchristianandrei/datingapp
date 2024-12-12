@@ -8,6 +8,5 @@ import { ComponentsModule } from '../../components/components.module';
 @NgModule({
   declarations: [MembersComponent],
   imports: [CommonModule, ComponentsModule, MembersRoutingModule],
-  exports: [MembersComponent],
 })
 export class MembersModule {}
